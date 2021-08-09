@@ -1,0 +1,14 @@
+{
+  "presets": [
+    ["@babel/env", {
+      "debug": false,
+      "useBuiltIns": "usage",
+      "corejs": "3.6",
+      "modules": "auto",
+      "targets": {
+        "ie": "11",
+        "browsers": ["last 2 versions"]
+      }
+    }]
+  ]
+}

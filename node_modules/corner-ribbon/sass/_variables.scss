@@ -1,0 +1,17 @@
+// id => (width, height)
+// generates .corner-ribbon--#{ $id }-[left|right]-[top|bottom] modifier classes
+// i.e. .corner-ribbon--default-left-top
+$corner-ribbon-sizes: (
+    default: (100px, 30px)
+) !default;
+
+$corner-ribbon-primary: #2c84dd !default;
+$corner-ribbon-success: #77c13a !default;
+
+// id => #color
+// generates .corner-ribbon--#{ $id } modifier classes
+// i.e. .corner-ribbon--primary
+$corner-ribbon-colors: (
+    primary: $corner-ribbon-primary,
+    success: $corner-ribbon-success
+) !default;

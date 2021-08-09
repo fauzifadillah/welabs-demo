@@ -1,0 +1,64 @@
+@mixin corner-ribbon ($directionX, $directionY, $width, $height, $rotate: 45deg) {
+	@if $directionX == left and $directionY == top {
+		$rotate: -$rotate;
+		transform-origin: 100% 100%;
+	}
+	@if $directionX == left and $directionY == bottom {
+		transform-origin: 100% 0;
+	}
+	@if $directionX == right and $directionY == top {
+		transform-origin: 0 100%;
+	}
+	@if $directionX == right and $directionY == bottom {
+		$rotate: -$rotate;
+		transform-origin: 0 0;
+	}
+
+	height: $height;
+	width: $width;
+	transform: rotateZ($rotate);
+	padding-right: ceil($height * tan($rotate));
+	padding-left: ceil($height / tan($rotate));
+	line-height: $height;
+	#{ $directionX }: floor(cos($rotate) * $width) - $width;
+	#{ $directionY }: -$height;
+}
+
+.corner-ribbon {
+	margin: 0;
+	text-align: center;
+	white-space: nowrap;
+	position: absolute;
+	overflow: hidden;
+	font-weight: 500;
+	box-sizing: border-box;
+}
+
+@each $index in map-keys($corner-ribbon-sizes) {
+	$sizes: map-get($corner-ribbon-sizes, $index);
+	$width: nth($sizes, 1);
+	$height: nth($sizes, 2);
+	@each $directionX in (left, right) {
+		@each $directionY in (top, bottom) {
+			.corner-ribbon--#{ $index }-#{ $directionX }-#{ $directionY } {
+				@include corner-ribbon($directionX, $directionY, $width, $height);
+			}
+		}
+	}
+}
+
+.corner-ribbon--fixed {
+	position: fixed;
+}
+
+.corner-ribbon--shadow {
+	box-shadow: 0 0 3px rgba(0,0,0,.3);
+}
+
+@each $index in map-keys($corner-ribbon-colors) {
+	$color: map-get($corner-ribbon-colors, $index);
+	.corner-ribbon--#{ $index } {
+		color: #fff;
+		background-color: $color;
+	}
+}
